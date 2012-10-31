@@ -107,7 +107,7 @@
       <OutputFile>debug/Players.exe</OutputFile>
       <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;C:\Development\vrpn_07_30\vrpn\build\Debug;C:\Development\vrpn_07_30\vrpn\build\quat\Debug;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>../Bin/Debug/Sample-Players.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>./Debug/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -163,7 +163,7 @@
       <OutputFile>release/$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;C:\Development\vrpn_07_30\vrpn\build\Release;C:\Development\vrpn_07_30\vrpn\build\quat\Release;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ProgramDatabaseFile>../Bin/Release/Sample-Players.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>./Release/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
