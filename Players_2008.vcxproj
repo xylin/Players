@@ -104,7 +104,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;Qtcored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>debug/Sample-Players.exe</OutputFile>
+      <OutputFile>debug/Players.exe</OutputFile>
       <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;C:\Development\vrpn_07_30\vrpn\build\Debug;C:\Development\vrpn_07_30\vrpn\build\quat\Debug;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>../Bin/Debug/Sample-Players.pdb</ProgramDatabaseFile>
