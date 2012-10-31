@@ -173,6 +173,6 @@ pip-log.txt
 *.manifest
 *.dep
 *.unsuccessfulbuild
-
+*.res
 ./Win32Debug
 ./Win32Release
