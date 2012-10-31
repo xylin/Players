@@ -1,5 +1,5 @@
 
-//#include <QtGui>
+#include <QtGui\QtGui>
 
 #include <math.h>
 
@@ -61,3 +61,5 @@ void StreamingThread::run()
     }
 }
 
+
+#include "streamingthread.moc" //last line

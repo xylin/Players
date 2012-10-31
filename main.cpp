@@ -426,7 +426,7 @@ void glInit (int * pargc, char ** argv)
 }
 #endif
 
-#define SAMPLE_XML_PATH "C:/Development/Projects/openNISample/Bin/Release/Sample-User.xml"
+#define SAMPLE_XML_PATH "./Sample-User.xml"
 
 #define CHECK_RC(rc, what)											\
 	if (rc != XN_STATUS_OK)											\

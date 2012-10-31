@@ -88,6 +88,7 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CustomBuildBeforeTargets Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compile</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,7 +160,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;QtCore4.lib;QtGUI4.lib;qtmain.lib;QtOpenGL4.lib;QtCLucene4.lib;QAxServer.lib;QtMultimedia4.lib;QtNetwork4.lib;QtUiTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;QtCore4.lib;QtGUI4.lib;qtmain.lib;QtOpenGL4.lib;QtCLucene4.lib;QAxServer.lib;QtMultimedia4.lib;QtNetwork4.lib;QtUiTools.lib;QAxContainer.lib;QtDeclarative4.lib;QtHelp4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>release/$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;C:\Development\vrpn_07_30\vrpn\build\Release;C:\Development\vrpn_07_30\vrpn\build\quat\Release;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -171,6 +172,13 @@
       <ImportLibrary>../../../Lib/Release/Sample-Players.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>moc streamingthread.h -o streamingthread.moc</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
