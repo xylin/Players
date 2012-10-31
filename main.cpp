@@ -8,7 +8,20 @@
 #include <XnOpenNI.h>
 #include <XnCodecIDs.h>
 #include <XnCppWrapper.h>
+
+#include <stdio.h>
+#include <tchar.h>
+
+#include <math.h>
+
+#include "vrpn_Text.h"
+#include "vrpn_Tracker.h"
+#include "vrpn_Analog.h"
+#include "vrpn_Button.h"
+#include "vrpn_Connection.h"
+
 #include "SceneDrawer.h"
+
 
 //#include <opencv/cv.h>
 //#include <opencv/cxcore.h>
@@ -17,7 +30,67 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
 
+void StreamSkeletonVRPN();
+
+// your tracker class must inherit from the vrpn_Tracker class
+class myTracker : public vrpn_Tracker
+{
+public:
+	myTracker( vrpn_Connection *c = 0 );
+	virtual ~myTracker() {};
+
+	virtual void mainloop();
+
+protected:
+	struct timeval _timestamp;
+};
+
+myTracker::myTracker( vrpn_Connection *c ) :
+	vrpn_Tracker( "Tracker0", c )
+{
+}
+
+void myTracker::mainloop()
+{
+	vrpn_gettimeofday(&_timestamp, NULL);
+
+	vrpn_Tracker::timestamp = _timestamp;
+
+	// We will just put a fake data in the position of our tracker
+	static float angle = 0; angle += 0.001f;
+
+	for(int i=0; i<2; i++)
+	{
+		// the pos array contains the position value of the tracker
+		// XXX Set your values here
+		pos[0] = sinf( angle ); 
+		pos[1] = 0.0f;
+		pos[2] = 0.0f;
+
+		// the d_quat array contains the orientation value of the tracker, stored as a quaternion
+		// XXX Set your values here
+		d_quat[0] = 0.0f;
+		d_quat[1] = 0.0f;
+		d_quat[2] = 0.0f;
+		d_quat[3] = 1.0f;
+
+		char msgbuf[1000];
+
+		d_sensor = i;
+
+		int  len = vrpn_Tracker::encode_to(msgbuf);
+
+		if (d_connection->pack_message(len, _timestamp, position_m_id, d_sender_id, msgbuf,
+			vrpn_CONNECTION_LOW_LATENCY))
+		{
+			fprintf(stderr,"can't write message: tossing\n");
+		}
+
+		server_mainloop();
+	}
+}
 //---------------------------------------------------------------------------
 // Macros
 //---------------------------------------------------------------------------
@@ -484,20 +557,15 @@ int main(int argc, char **argv)
 	XnStatus rc = XN_STATUS_OK;
 	xn::EnumerationErrors errors;
 
-	rc = g_Context.Init();
-	//rc = g_Context.InitFromXmlFile(SAMPLE_XML_PATH, g_ScriptNode, &errors);
-
+	rc = g_Context.InitFromXmlFile(SAMPLE_XML_PATH, g_ScriptNode, &errors);
 	CHECK_ERRORS(rc, errors, "InitFromXmlFile");
 	CHECK_RC(rc, "InitFromXml");
 
-	//g_Context.OpenFileRecording("C:/Development/Data/ACMGC2012Data/bertrand_c5_t1_kinect_1.oni");
-	g_Context.OpenFileRecording("C:/Development/Data/ACMGC2012Data/bertrand_c5_t1_kinect_1.oni");
-
 	rc = g_Context.FindExistingNode(XN_NODE_TYPE_DEPTH, g_DepthGenerator);
 	CHECK_RC(rc, "Find depth generator");
-//	rc = g_Context.FindExistingNode(XN_NODE_TYPE_USER, g_UserGenerator);
-//	CHECK_RC(rc, "Find user generator");
-	g_UserGenerator.Create(g_Context);
+	rc = g_Context.FindExistingNode(XN_NODE_TYPE_USER, g_UserGenerator);
+	CHECK_RC(rc, "Find user generator");
+
 
 	if (!g_UserGenerator.IsCapabilitySupported(XN_CAPABILITY_SKELETON) ||
 		!g_UserGenerator.IsCapabilitySupported(XN_CAPABILITY_POSE_DETECTION))
@@ -551,4 +619,27 @@ int main(int argc, char **argv)
 	CleanupExit();
 
 	#endif
+}
+
+
+void StreamSkeletonVRPN()
+{
+	// Creating the network server
+	vrpn_Connection_IP* m_Connection = new vrpn_Connection_IP();
+
+	// Creating the tracker
+	myTracker* serverTracker = new myTracker(m_Connection );
+
+	cout << "Created VRPN server." << endl;
+
+	while(true)
+	{
+		serverTracker->mainloop();
+
+		m_Connection->mainloop();
+
+		cout << "one vrpn loop." << endl;
+		// Calling Sleep to let the CPU breathe.
+		SleepEx(500,FALSE);
+	}
 }

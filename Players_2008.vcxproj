@@ -92,7 +92,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;USE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -103,9 +103,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_core231d.lib;opencv_imgproc231d.lib;opencv_highgui231d.lib;opencv_video231d.lib;opencv_features2d231d.lib;opencv_calib3d231d.lib;opencv_objdetect231d.lib;opencv_contrib231d.lib;opencv_legacy231d.lib;opencv_flann231d.lib;opencv_ml231d.lib;OpenNI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../Bin/Debug/Sample-Players.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;C:\Development\vrpn_07_30\vrpn\build\Debug;C:\Development\vrpn_07_30\vrpn\build\quat\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>../Bin/Debug/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;USE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -159,9 +159,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OpenNI.lib;opencv_core231.lib;opencv_imgproc231.lib;opencv_highgui231.lib;opencv_ml231.lib;opencv_video231.lib;opencv_features2d231.lib;opencv_calib3d231.lib;opencv_objdetect231.lib;opencv_contrib231.lib;opencv_legacy231.lib;opencv_flann231.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;C:\Development\vrpn_07_30\vrpn\build\Release;C:\Development\vrpn_07_30\vrpn\build\quat\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <ProgramDatabaseFile>../Bin/Release/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
