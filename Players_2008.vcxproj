@@ -92,7 +92,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;C:\Development\Qt\4.8.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;USE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -103,9 +103,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;Qtcored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../Bin/Debug/Sample-Players.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;C:\Development\vrpn_07_30\vrpn\build\Debug;C:\Development\vrpn_07_30\vrpn\build\quat\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCVDIR)/lib/debug;$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;C:\Development\vrpn_07_30\vrpn\build\Debug;C:\Development\vrpn_07_30\vrpn\build\quat\Debug;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>../Bin/Debug/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPEN_NI_INCLUDE);..\..\Include;..\..\Samples\Players;$(OPENCVDIR)\include;$(OPENCVDIR)\include\opencv;C:\Development\vrpn_07_30\vrpn;C:\Development\vrpn_07_30\vrpn\quat;C:\Development\Qt\4.8.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;USE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -159,9 +159,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenNI.lib;vrpn.lib;quat.lib;QtCore4.lib;QtGUI4.lib;qtmain.lib;QtOpenGL4.lib;QtCLucene4.lib;QAxServer.lib;QtMultimedia4.lib;QtNetwork4.lib;QtUiTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;C:\Development\vrpn_07_30\vrpn\build\Release;C:\Development\vrpn_07_30\vrpn\build\quat\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPEN_NI_LIB);..\..\Lib;../../Lib/;Libs;$(OPENCVDIR)\lib/release;C:\Development\vrpn_07_30\vrpn\build\Release;C:\Development\vrpn_07_30\vrpn\build\quat\Release;C:\Development\Qt\4.8.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <ProgramDatabaseFile>../Bin/Release/Sample-Players.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -212,6 +212,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneDrawer.cpp" />
+    <ClCompile Include="streamingthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Res\mainicon.ico" />
@@ -222,6 +223,7 @@
   <ItemGroup>
     <ClInclude Include="..\Res\Resource-NITE.h" />
     <ClInclude Include="SceneDrawer.h" />
+    <ClInclude Include="streamingthread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
