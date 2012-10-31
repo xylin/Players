@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="SceneDrawer.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="streamingthread.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Res\Resource-NITE.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="streamingthread.h">
+      <Filter>Include files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDrawer.h">
+      <Filter>Include files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{2f3598d3-fe2f-4b4c-8b65-4f4535b2a94b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{6f9101c0-4142-4e11-9bf8-67cb7e1c9a66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include files">
+      <UniqueIdentifier>{664df0ff-cb3c-4364-be17-69707be5a807}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\mainicon.ico">
+      <Filter>res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Res\NITE.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -167,7 +167,6 @@ pip-log.txt
 *.log
 *.htm
 *.tlog
-*.filters
 *.idb
 *.lastbuildstate
 *.manifest
