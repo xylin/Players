@@ -68,7 +68,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release/</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
@@ -115,6 +115,12 @@
     <PreBuildEvent>
       <Command>$(QTDIR)/moc streamingthread.h -o streamingthread.moc</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(QTDIR)\QtCored4.dll  $(OutDir)
+copy $(QTDIR)\QtGuid4.dll  $(OutDir)
+copy $(QTDIR)\QtOpenGLd4.dll  $(OutDir)
+copy $(QTDIR)\QtTestd4.dll  $(OutDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -182,6 +188,13 @@
     <PreBuildEvent>
       <Command>$(QTDIR)/moc streamingthread.h -o streamingthread.moc</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(QTDIR)\QtCore4.dll  $(OutDir)
+copy $(QTDIR)\QtGui4.dll  $(OutDir)
+copy $(QTDIR)\QtOpenGL4.dll  $(OutDir)
+copy $(QTDIR)\QtTest4.dll  $(OutDir)
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -224,11 +237,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneDrawer.cpp" />
     <ClCompile Include="streamingthread.cpp" />
+    <ClCompile Include="vrpnSkeletonTracker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Res\Resource-NITE.h" />
     <ClInclude Include="SceneDrawer.h" />
     <ClInclude Include="streamingthread.h" />
+    <ClInclude Include="vrpnSkeletonTracker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\mainicon.ico" />

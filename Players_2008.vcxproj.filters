@@ -10,6 +10,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="vrpnSkeletonTracker.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Res\Resource-NITE.h">
@@ -19,6 +22,9 @@
       <Filter>Include files</Filter>
     </ClInclude>
     <ClInclude Include="SceneDrawer.h">
+      <Filter>Include files</Filter>
+    </ClInclude>
+    <ClInclude Include="vrpnSkeletonTracker.h">
       <Filter>Include files</Filter>
     </ClInclude>
   </ItemGroup>

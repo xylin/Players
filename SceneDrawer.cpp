@@ -19,10 +19,20 @@
 #include <iostream>
 #include <fstream>
 
+
+#include "vrpn_Text.h"
+#include "vrpn_Tracker.h"
+#include "vrpn_Connection.h"
+
+#include "vrpnSkeletonTracker.h"
+#include "streamingthread.h"
+
 extern xn::UserGenerator g_UserGenerator;
 extern xn::DepthGenerator g_DepthGenerator;
 
 extern std::ofstream OUT_FILE;
+
+extern StreamingThread thread;
 
 #define MAX_DEPTH 10000
 float g_pDepthHist[MAX_DEPTH];
@@ -172,8 +182,9 @@ void SaveSkeletonPoints(XnUserID player)
 
 	if(OUT_FILE.is_open())
 	{
+		thread.StreamOneFrame(0, 0, 0, QSize());
 		
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_HEAD);	
+	/*	WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_HEAD);	
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_NECK);	
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_TORSO);
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_WAIST);
@@ -202,7 +213,7 @@ void SaveSkeletonPoints(XnUserID player)
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_HIP);
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_KNEE);
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_ANKLE);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_FOOT);
+		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_FOOT);*/
 	}
 }
 

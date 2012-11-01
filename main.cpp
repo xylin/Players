@@ -14,11 +14,6 @@
 
 #include <math.h>
 
-#include "vrpn_Text.h"
-#include "vrpn_Tracker.h"
-#include "vrpn_Analog.h"
-#include "vrpn_Button.h"
-#include "vrpn_Connection.h"
 
 #include "SceneDrawer.h"
 
@@ -32,65 +27,13 @@
 
 using namespace std;
 
-void StreamSkeletonVRPN();
+#include "vrpn_Text.h"
+#include "vrpn_Tracker.h"
+#include "vrpn_Connection.h"
 
-// your tracker class must inherit from the vrpn_Tracker class
-class myTracker : public vrpn_Tracker
-{
-public:
-	myTracker( vrpn_Connection *c = 0 );
-	virtual ~myTracker() {};
+#include "vrpnSkeletonTracker.h"
+#include "streamingthread.h"
 
-	virtual void mainloop();
-
-protected:
-	struct timeval _timestamp;
-};
-
-myTracker::myTracker( vrpn_Connection *c ) :
-	vrpn_Tracker( "Tracker0", c )
-{
-}
-
-void myTracker::mainloop()
-{
-	vrpn_gettimeofday(&_timestamp, NULL);
-
-	vrpn_Tracker::timestamp = _timestamp;
-
-	// We will just put a fake data in the position of our tracker
-	static float angle = 0; angle += 0.001f;
-
-	for(int i=0; i<2; i++)
-	{
-		// the pos array contains the position value of the tracker
-		// XXX Set your values here
-		pos[0] = sinf( angle ); 
-		pos[1] = 0.0f;
-		pos[2] = 0.0f;
-
-		// the d_quat array contains the orientation value of the tracker, stored as a quaternion
-		// XXX Set your values here
-		d_quat[0] = 0.0f;
-		d_quat[1] = 0.0f;
-		d_quat[2] = 0.0f;
-		d_quat[3] = 1.0f;
-
-		char msgbuf[1000];
-
-		d_sensor = i;
-
-		int  len = vrpn_Tracker::encode_to(msgbuf);
-
-		if (d_connection->pack_message(len, _timestamp, position_m_id, d_sender_id, msgbuf,
-			vrpn_CONNECTION_LOW_LATENCY))
-		{
-			fprintf(stderr,"can't write message: tossing\n");
-		}
-
-		server_mainloop();
-	}
-}
 //---------------------------------------------------------------------------
 // Macros
 //---------------------------------------------------------------------------
@@ -117,6 +60,9 @@ xn::Recorder* g_pRecorder;
 
 XnUserID g_nPlayer = 0;
 XnBool g_bCalibrated = FALSE;
+
+
+StreamingThread thread;
 
 std::ofstream OUT_FILE("C:/Development/Projects/openNISample/Players/skePoints.txt");
 
@@ -447,113 +393,6 @@ void glInit (int * pargc, char ** argv)
 
 int main(int argc, char **argv)
 {
-/*	
-	// Stores return value of any functions called
-	// XN_STATUS_OK indicates they completed succesfully
-	// Any other values usually means an error has occurred
-	XnStatus nRetVal = XN_STATUS_OK;
-
-	xn::Context context;
-
-	int framenum = 0;
-
-
-	// Initialise context
-	nRetVal = context.Init();											CHECK_RC(nRetVal, "Init");
-	
-	// Open the specified input file
-	nRetVal = context.OpenFileRecording("C:/Development/Data/Test/laetitia_c2_t1_kinect_1.oni");						CHECK_FILE_OPENED_OK(nRetVal, "Open recording");
-
-
-	// Create image and depth generators
-	xn::DepthGenerator depth;
-	xn::ImageGenerator image;
-	
-	// Create image and depth meta data variables, these hold information
-	xn::DepthMetaData depthMD;
-	xn::ImageMetaData imageMD;
-
-	// load depth and image nodes into generators
-	nRetVal = context.FindExistingNode(XN_NODE_TYPE_DEPTH, depth);			CHECK_RC(nRetVal, "find Depth node");
-	nRetVal = context.FindExistingNode(XN_NODE_TYPE_IMAGE, image);			CHECK_RC(nRetVal, "find Image node");
-
-
-	// Get the image and depth meta data 
-	depth.GetMetaData(depthMD);
-	image.GetMetaData(imageMD);
-
-	//Opencv code for initialising image and window
-	//IplImage* img = cvCreateImage(cvSize((int)imageMD.XRes(),(int)imageMD.YRes()),IPL_DEPTH_8U,3);
-	IplImage* img = cvCreateImage(cvSize(640,480),IPL_DEPTH_8U,3);	
-	cvNamedWindow("Image1",CV_WINDOW_AUTOSIZE );
-	cvMoveWindow("Image1",0,0);
-	
-
-	// continuously print out timestamps for image and depth nodes of each frame, until a keyboard key is pressed
-	while (!xnOSWasKeyboardHit()) // Sidenote: need to change this to last frame, instead of keyboard hit
-	{
-		// Update image and depth nodes, i.e. moves to next frame
-		context.WaitAndUpdateAll();
-		
-	
-		// Get the image and depth meta data for the current frame
-		depth.GetMetaData(depthMD);
-		image.GetMetaData(imageMD);
-		
-		const XnRGB24Pixel* pImageRow = imageMD.RGB24Data();	
-	
-		for (int y = 0; y < imageMD.YRes(); y++)
-		{
-			uchar* imgptr = (uchar*)(img->imageData + (int)y*img->widthStep);
-			
-			const XnRGB24Pixel* pImage = pImageRow; 
-
-			for(int x = 0; x < imageMD.XRes(); x++)
-			{	
-				imgptr[3*(int)x + 0] = (*pImage).nBlue;
-				imgptr[3*(int)x + 1] = (*pImage).nGreen;
-				imgptr[3*(int)x + 2] = (*pImage).nRed; 
-				pImage++;
-			}
-			pImageRow += imageMD.XRes();
-		}
-			
-		// print image and depth timestamps
-		XnUInt32 imageFrameID   = image.GetFrameID();
-		XnUInt32 depthFrameID   = depth.GetFrameID();
-		XnUInt64 imageTimeStamp = image.GetTimestamp();
-		XnUInt64 depthTimeStamp = depth.GetTimestamp();
-		printf("Image Timestamp %.3f, Depth TimeStamp %.3f ", (double)imageTimeStamp/1E6, (double)depthTimeStamp/1E6);
-		printf("Image Frame %d, Depth Frame %d\n", imageFrameID, depthFrameID);
-		
-		if (framenum == 0)
-			cvShowImage("Image1",img);
-		else if (imageFrameID == framenum)
-			cvShowImage("Image1",img);
-				
-
-		// -- Code to save the current frame as a png image -- */
-		/*
-		char filename[80];
-		std::stringstream ss;
-		ss << "frame" << imageFrameID << ".png";
-		std::string das = ss.str();		
-		cvSaveImage(das.c_str(), img);
-		 */
-		/* -- Code to save the current frame as a png image -- 
-		//
-
-		char key = cvWaitKey(1);
-		if (key == 27)
-		return 0;
-	
-	}
-	
-	context.Shutdown();
-	cvReleaseImage(&img);
-	return 0;
-*/
-	
 	XnStatus rc = XN_STATUS_OK;
 	xn::EnumerationErrors errors;
 
@@ -621,25 +460,3 @@ int main(int argc, char **argv)
 	#endif
 }
 
-
-void StreamSkeletonVRPN()
-{
-	// Creating the network server
-	vrpn_Connection_IP* m_Connection = new vrpn_Connection_IP();
-
-	// Creating the tracker
-	myTracker* serverTracker = new myTracker(m_Connection );
-
-	cout << "Created VRPN server." << endl;
-
-	while(true)
-	{
-		serverTracker->mainloop();
-
-		m_Connection->mainloop();
-
-		cout << "one vrpn loop." << endl;
-		// Calling Sleep to let the CPU breathe.
-		SleepEx(500,FALSE);
-	}
-}
