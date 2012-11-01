@@ -42,15 +42,14 @@ StreamingThread::~StreamingThread()
     wait();
 }
 
-void StreamingThread::StreamOneFrame(double centerX, double centerY, double scaleFactor,
-                          QSize resultSize)
+void StreamingThread::StreamOneFrame(double X, double Y, double Z)
 {
     QMutexLocker locker(&mutex);
 
-    this->centerX = centerX;
-    this->centerY = centerY;
-    this->scaleFactor = scaleFactor;
-    this->resultSize = resultSize;
+    this->m_dX = X;
+    this->m_dY = Y;
+    this->m_dZ = Z;
+ 
 
     if (!isRunning()) {
         start(LowPriority);
@@ -68,19 +67,25 @@ void StreamingThread::run()
 
     forever {
         mutex.lock();
-        QSize resultSize = this->resultSize;
-        double scaleFactor = this->scaleFactor;
-        double centerX = this->centerX;
-        double centerY = this->centerY;
+                
+		double dX = this->m_dX;
+        double dY = this->m_dY;
+        double dZ = this->m_dZ;
 
-	/*	vector<float> &rvfPos = m_serverTracker->m_vvfWholeSkeleton.at(0);
+		vector<float> &rvfPos_HEAD = m_serverTracker->m_vvfWholeSkeleton.at(0);
 
 		angle += 0.001f;
 
-		rvfPos.at(0) =  sinf( angle );
-		rvfPos.at(1) = 0;
-		rvfPos.at(2) = 0;
-		*/
+		rvfPos_HEAD.at(0) =  sinf( angle );
+		rvfPos_HEAD.at(1) = 0;
+		rvfPos_HEAD.at(2) = 0;
+
+		vector<float> &rvfPos_NECK = m_serverTracker->m_vvfWholeSkeleton.at(1);
+		
+		rvfPos_NECK.at(0) = dX;
+		rvfPos_NECK.at(1) = dY;
+		rvfPos_NECK.at(2) = dZ;
+		
         mutex.unlock();
 		
       

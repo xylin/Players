@@ -29,7 +29,7 @@ void myTracker::mainloop()
 	vrpn_Tracker::timestamp = _timestamp;
 
 	// We will just put a fake data in the position of our tracker
-	static float angle = 0; angle += 0.001f;
+	//static float angle = 0; angle += 0.001f;
 
 	for(int i=0; i<iSKELETON_NUM; i++)
 	{
@@ -37,7 +37,7 @@ void myTracker::mainloop()
 
 		// the pos array contains the position value of the tracker
 		// XXX Set your values here
-		pos[0] = sinf( angle ); 
+		pos[0] = rvfPos.at(0); 
 		pos[1] = rvfPos.at(1);
 		pos[2] = rvfPos.at(2);
 

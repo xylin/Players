@@ -23,8 +23,7 @@ public:
     StreamingThread(QObject *parent = 0);
     ~StreamingThread();
 
-    void StreamOneFrame(double centerX, double centerY, double scaleFactor,
-                QSize resultSize);
+    void StreamOneFrame(double X, double Y, double Z);
 
 protected:
     void run();
@@ -33,10 +32,11 @@ private:
 
     QMutex mutex;
     QWaitCondition condition;
-    double centerX;
-    double centerY;
-    double scaleFactor;
-    QSize resultSize;
+    
+	double m_dX;
+    double m_dY;
+    double m_dZ;
+    
     bool restart;
     bool abort;    
 

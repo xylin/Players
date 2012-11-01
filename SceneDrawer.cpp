@@ -113,12 +113,12 @@ void DrawLimb(XnUserID player, XnSkeletonJoint eJoint1, XnSkeletonJoint eJoint2)
 {
 	if (!g_UserGenerator.GetSkeletonCap().IsCalibrated(player))
 	{
-		printf("not calibrated!\n");
+	//	printf("not calibrated!\n");
 		return;
 	}
 	if (!g_UserGenerator.GetSkeletonCap().IsTracking(player))
 	{
-		printf("not tracked!\n");
+	//	printf("not tracked!\n");
 		return;
 	}
 
@@ -161,12 +161,12 @@ void SaveSkeletonPoints(XnUserID player)
 {
 	if (!g_UserGenerator.GetSkeletonCap().IsCalibrated(player))
 	{
-		printf("not calibrated!\n");
+	//	printf("not calibrated!\n");
 		return;
 	}
 	if (!g_UserGenerator.GetSkeletonCap().IsTracking(player))
 	{
-		printf("not tracked!\n");
+//		printf("not tracked!\n");
 		return;
 	}
 
@@ -180,9 +180,16 @@ void SaveSkeletonPoints(XnUserID player)
 
 	double dDepthTimeStamp = (double)depthTimeStampOrig/1E6;
 
-	if(OUT_FILE.is_open())
+//	if(OUT_FILE.is_open())
 	{
-		thread.StreamOneFrame(0, 0, 0, QSize());
+		XnSkeletonJointPosition jointSkeleton;
+
+		g_UserGenerator.GetSkeletonCap().GetSkeletonJointPosition(player, XN_SKEL_NECK, jointSkeleton);
+
+		XnPoint3D ptSkeleton;
+		ptSkeleton = jointSkeleton.position;
+
+		thread.StreamOneFrame(ptSkeleton.X, ptSkeleton.Y, ptSkeleton.Z);
 		
 	/*	WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_HEAD);	
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_NECK);	

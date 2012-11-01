@@ -64,7 +64,7 @@ XnBool g_bCalibrated = FALSE;
 
 StreamingThread thread;
 
-std::ofstream OUT_FILE("C:/Development/Projects/openNISample/Players/skePoints.txt");
+std::ofstream OUT_FILE("C:/Development/Projects/Players/skePoints.txt");
 
 
 #ifdef USE_GLUT
