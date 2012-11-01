@@ -62,6 +62,10 @@ void StreamingThread::StreamOneFrame(double centerX, double centerY, double scal
 
 void StreamingThread::run()
 {
+	static float angle = 0; 
+	
+	
+
     forever {
         mutex.lock();
         QSize resultSize = this->resultSize;
@@ -69,12 +73,17 @@ void StreamingThread::run()
         double centerX = this->centerX;
         double centerY = this->centerY;
 
-		m_serverTracker->m_vvfWholeSkeleton[0][0]=0;
+	/*	vector<float> &rvfPos = m_serverTracker->m_vvfWholeSkeleton.at(0);
 
+		angle += 0.001f;
+
+		rvfPos.at(0) =  sinf( angle );
+		rvfPos.at(1) = 0;
+		rvfPos.at(2) = 0;
+		*/
         mutex.unlock();
 		
       
-
 		//---------------------
 		m_serverTracker->mainloop();
 

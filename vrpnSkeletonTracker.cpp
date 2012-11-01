@@ -14,8 +14,12 @@
 myTracker::myTracker( vrpn_Connection *c ) :
 	vrpn_Tracker( "Tracker0", c )
 {
-	m_vvfWholeSkeleton.resize(27);
+	m_vvfWholeSkeleton.resize(iSKELETON_NUM);
 
+	for(int i=0; i<iSKELETON_NUM; i++)
+	{
+		m_vvfWholeSkeleton.at(i).resize(3);
+	}
 }
 
 void myTracker::mainloop()
@@ -27,13 +31,15 @@ void myTracker::mainloop()
 	// We will just put a fake data in the position of our tracker
 	static float angle = 0; angle += 0.001f;
 
-	for(int i=0; i<2; i++)
+	for(int i=0; i<iSKELETON_NUM; i++)
 	{
+		vector<float> &rvfPos = m_vvfWholeSkeleton.at(i);
+
 		// the pos array contains the position value of the tracker
 		// XXX Set your values here
 		pos[0] = sinf( angle ); 
-		pos[1] = 0.0f;
-		pos[2] = 0.0f;
+		pos[1] = rvfPos.at(1);
+		pos[2] = rvfPos.at(2);
 
 		// the d_quat array contains the orientation value of the tracker, stored as a quaternion
 		// XXX Set your values here

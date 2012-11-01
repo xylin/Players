@@ -8,6 +8,8 @@ class vrpn_Tracker;
 
 using namespace std;
 
+#define iSKELETON_NUM 24
+
 class myTracker : public vrpn_Tracker
 {
 public:
