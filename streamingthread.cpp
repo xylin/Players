@@ -28,6 +28,13 @@ StreamingThread::StreamingThread(QObject *parent)
 	// Creating the tracker
 	m_serverTracker = new myTracker(m_Connection );
 
+	m_vvdCoord.resize(iSKELETON_NUM);
+
+	for(int i=0; i<iSKELETON_NUM; i++)
+	{
+		m_vvdCoord.at(i).resize(3);
+	}
+
 	cout << "Created VRPN server." << endl;
 
 }
@@ -42,14 +49,16 @@ StreamingThread::~StreamingThread()
     wait();
 }
 
-void StreamingThread::StreamOneFrame(double X, double Y, double Z)
+void StreamingThread::StreamOneFrame(vector< vector<double> >& vvdCoord)
 {
     QMutexLocker locker(&mutex);
 
-    this->m_dX = X;
-    this->m_dY = Y;
-    this->m_dZ = Z;
- 
+	for(int i=0; i<vvdCoord.size(); i++)
+	{
+		m_vvdCoord.at(i).at(0) =  vvdCoord.at(i).at(0);   
+		m_vvdCoord.at(i).at(1) =  vvdCoord.at(i).at(1);
+		m_vvdCoord.at(i).at(2) =  vvdCoord.at(i).at(2);
+	}
 
     if (!isRunning()) {
         start(LowPriority);
@@ -63,28 +72,31 @@ void StreamingThread::run()
 {
 	static float angle = 0; 
 	
-	
-
-    forever {
+    forever 
+	{
         mutex.lock();
-                
-		double dX = this->m_dX;
-        double dY = this->m_dY;
-        double dZ = this->m_dZ;
 
-		vector<float> &rvfPos_HEAD = m_serverTracker->m_vvfWholeSkeleton.at(0);
+		for(int i=0; i<m_vvdCoord.size(); i++)
+		{
+			double dX = m_vvdCoord.at(i).at(0);
+			double dY = m_vvdCoord.at(i).at(1);
+			double dZ = m_vvdCoord.at(i).at(2);
 
+			vector<float> &rvfPos = m_serverTracker->m_vvfWholeSkeleton.at(i);		
+
+			rvfPos.at(0) = dX;
+			rvfPos.at(1) = dY;
+			rvfPos.at(2) = dZ;
+		}
+
+		/*
 		angle += 0.001f;
-
-		rvfPos_HEAD.at(0) =  sinf( angle );
-		rvfPos_HEAD.at(1) = 0;
-		rvfPos_HEAD.at(2) = 0;
-
+		
 		vector<float> &rvfPos_NECK = m_serverTracker->m_vvfWholeSkeleton.at(1);
 		
-		rvfPos_NECK.at(0) = dX;
+		rvfPos_NECK.at(0) = sinf(angle);
 		rvfPos_NECK.at(1) = dY;
-		rvfPos_NECK.at(2) = dZ;
+		rvfPos_NECK.at(2) = dZ;*/
 		
         mutex.unlock();
 		
@@ -97,11 +109,10 @@ void StreamingThread::run()
 		cout << "one vrpn loop." << endl;
 
 		// Calling Sleep to let the CPU breathe.
-		SleepEx(500,FALSE);
+		SleepEx(200,FALSE);
 		//---------------------
 
-		  
-		
+		  		
 		
 		mutex.lock();
 

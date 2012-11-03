@@ -23,7 +23,7 @@ public:
     StreamingThread(QObject *parent = 0);
     ~StreamingThread();
 
-    void StreamOneFrame(double X, double Y, double Z);
+    void StreamOneFrame(vector< vector<double> >& vvdCoord);
 
 protected:
     void run();
@@ -33,9 +33,7 @@ private:
     QMutex mutex;
     QWaitCondition condition;
     
-	double m_dX;
-    double m_dY;
-    double m_dZ;
+	vector< vector<double> > m_vvdCoord;
     
     bool restart;
     bool abort;    

@@ -181,15 +181,25 @@ void SaveSkeletonPoints(XnUserID player)
 	double dDepthTimeStamp = (double)depthTimeStampOrig/1E6;
 
 //	if(OUT_FILE.is_open())
+	vector< vector<double> > vvdCoord;
+	
+	vvdCoord.resize(iSKELETON_NUM);
+
+	for(int i=0; i<iSKELETON_NUM; i++)
 	{
 		XnSkeletonJointPosition jointSkeleton;
 
-		g_UserGenerator.GetSkeletonCap().GetSkeletonJointPosition(player, XN_SKEL_NECK, jointSkeleton);
+		g_UserGenerator.GetSkeletonCap().GetSkeletonJointPosition(player, (XnSkeletonJoint)(i+1), jointSkeleton);
 
 		XnPoint3D ptSkeleton;
+
 		ptSkeleton = jointSkeleton.position;
 
-		thread.StreamOneFrame(ptSkeleton.X, ptSkeleton.Y, ptSkeleton.Z);
+		vvdCoord.at(i).resize(3);
+
+		vvdCoord.at(i).at(0) = ptSkeleton.X;
+		vvdCoord.at(i).at(1) = ptSkeleton.Y;
+		vvdCoord.at(i).at(2) = ptSkeleton.Z;
 		
 	/*	WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_HEAD);	
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_NECK);	
@@ -222,6 +232,8 @@ void SaveSkeletonPoints(XnUserID player)
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_ANKLE);
 		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_FOOT);*/
 	}
+
+	thread.StreamOneFrame(vvdCoord);
 }
 
 void DrawDepthMap(const xn::DepthMetaData& dmd, const xn::SceneMetaData& smd, XnUserID player)
