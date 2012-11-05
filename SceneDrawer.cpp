@@ -200,37 +200,6 @@ void SaveSkeletonPoints(XnUserID player)
 		vvdCoord.at(i).at(0) = ptSkeleton.X;
 		vvdCoord.at(i).at(1) = ptSkeleton.Y;
 		vvdCoord.at(i).at(2) = ptSkeleton.Z;
-		
-	/*	WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_HEAD);	
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_NECK);	
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_TORSO);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_WAIST);
-
-
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_COLLAR);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_SHOULDER);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_ELBOW);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_WRIST);		
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_HAND);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_FINGERTIP);
-
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_COLLAR);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_SHOULDER);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_ELBOW);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_WRIST);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_HAND);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_FINGERTIP);
-
-	
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_HIP);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_KNEE);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_ANKLE);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_LEFT_FOOT);
-
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_HIP);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_KNEE);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_ANKLE);
-		WriteToFile(player, depthFrameID, dDepthTimeStamp, XN_SKEL_RIGHT_FOOT);*/
 	}
 
 	thread.StreamOneFrame(vvdCoord);
